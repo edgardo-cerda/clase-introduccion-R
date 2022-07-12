@@ -13,7 +13,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 getwd()
 
 ##### Distintas funciones para cargar datos ####
-ejemplo1 <- haven::read_dta(file = file.path('inputs', 'ELSOC_Long_2016_2021_v1.00_R.dta'))
+# ejemplo1 <- haven::read_dta(file = file.path('inputs', 'ELSOC_Long_2016_2021_v1.00_R.dta'))
 
 load(file.path('inputs', 'ELSOC_Long_2016_2021_v1.00_R.RData'))
 
