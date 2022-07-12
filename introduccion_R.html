@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introducción a R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Edgardo Cerda (edgardo.cerda.e@gmail.com)" />
+    <script src="introduccion_R_files/header-attrs-2.14/header-attrs.js"></script>
+    <link href="introduccion_R_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="introduccion_R_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <script src="introduccion_R_files/kePrint-0.0.1/kePrint.js"></script>
+    <link href="introduccion_R_files/lightable-0.0.1/lightable.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Introducción a R
+]
+.author[
+### Edgardo Cerda (<a href="mailto:edgardo.cerda.e@gmail.com" class="email">edgardo.cerda.e@gmail.com</a>)
+]
+.date[
+### Julio, 2022
+]
+
+---
+
+
+
+
+
+# Contenidos 
+
+En este curso veremos:
+
+- Parte I: Componentes y funcionamiento básico de R
+
+  - Qué es R
+  - Cómo utilizar R desde RStudio
+  - Cuáles son y cómo se utilizan los principales componentes de R
+  - Cuáles son las principales estructuras de datos en R y cómo se utilizan
+
+--
+
+- Parte II: Trabajando con datos reales en R
+
+  - Cómo importar y manipular datos
+  - Algunas funciones de análisis de datos
+  - Cómo visualizar datos
+
+---
+class: center, middle
+
+# Parte I: Componentes y funcionamiento básico de R
+
+---
+
+# ¿Qué es R?
+
+- R es un entorno y lenguaje de programación con un enfoque en la manipulación de datos, cálculos y gráficos
+
+--
+
+- Fue desarrollado por estadísticos específicamente para funcionar como entorno interactivo para el análisis de datos
+
+--
+
+- Es a la vez un lenguaje de programación bien desarrollado, simple y efectivo, por lo que ha funcionado como un vehículo para el desarrollo de nuevos métodos de análisis interactivo de datos
+
+--
+
+- Gracias a esto es muy dinámico y flexible
+
+
+---
+
+# ¿Por qué aprender R?
+
+- Es un programa libre y de fuente abierta
+
+--
+
+- Es muy fácil hacer contribuciones a R, por lo que colección de herramientas disponibles esta muy actualizada y crece más cada día
+
+--
+
+- Comunidad en torno a R es grande, creciente y muy activa
+
+--
+
+- Contiene una amplia, coherente e integrada colección de herramientas para análisis de datos
+
+--
+
+- El sistema de gráficos es simple y poderoso -&gt; fácil realizar gráficos de gran calidad
+
+--
+
+- Es simple realizar reportes, documentos y presentaciones reproducibles (esta presentación está hecha en R)
+
+--
+
+- Scripts y objetos de datos fácilmente compartibles entre distintas plataformas
+
+
+---
+
+# Comenzar a usar R: RStudio
+
+Se puede trabajar directamente en la consola de R, pero es preferible y más simple utilizar una interfaz gráfica
+
+--
+
+La más utilizada y recomendada es, por lejos, **RStudio**
+
+--
+
+Principales componentes:
+
+- Consola
+- Editor de scripts (códigos)
+- Ventana de Environment (ambiente)
+- Ventana de ayuda, gráficos, archivos y otros
+
+---
+
+# Comenzar a usar R: Formato de outputs
+
+El formato básico de los códigos en R es el formato "R Script" o "archivo R" (.R)
+
+--
+
+Es un archivo que permite almacenar y ejecutar los códigos de R. Al ejecutarlo, los outputs se generan en las ventanas de R. Es equivalente a escribir los códigos en la consola.
+
+--
+
+Un formato un poco más avanzado, pero mucho más poderoso es el formato Rmarkdown (.Rmd).
+
+--
+
+Es un formato que permite almacenar y ejecutar códigos de R (al igual .R), pero que al ejecutarlo genera un archivo o reporte independiente en distintos formatos, dependiendo de las especificaciones que uno define.
+
+Los más comunes son archivos html, pdf, word, o presentaciones
+
+--
+
+Para utilizarlo se debe instalar el paquete de R 'rmarkdown' primero
+
+---
+
+#  Principales componentes de R
+
+## Objetos
+
+R es un lenguaje orientado a **objetos**, por lo que la mayoría de las cosas con las que trabajaremos en R son en realidad objetos
+
+Los objetos son las entidades que R crea y manipula. Pueden ser de muchos tipos:  variables, datos, funciones, resultados, etc.
+
+--
+
+Para definir un nuevo objeto usamos el operador &lt;-
+
+
+```r
+a &lt;- 100
+a+2
+```
+
+```
+## [1] 102
+```
+
+--
+La colección de objetos creados durante una sesión de trabajo se denomina ***espacio de trabajo*** (workspace). Estos se pueden guardar en un archivo para su uso posterior
+
+---
+
+#  Principales componentes de R
+
+## Funciones
+
+Una vez definidos los objetos, el proceso de análisis de datos puede ser descrito como una serie de funciones aplicadas a objetos
+
+En general, se requiere utilizar paréntesis para ejecutar una función, y habitualmente se deben especificar uno o más argumentos, aunque también pueden no necesitar argumentos
+
+
+```r
+log(a)
+```
+
+```
+## [1] 4.60517
+```
+
+```r
+runif(5)
+```
+
+```
+## [1] 0.64328888 0.50035817 0.07202278 0.17284265 0.36639611
+```
+
+--
+
+R viene construido con un set de funciones, pero se pueden crear nuevas funciones o, mucho mejor aún, agregar funciones creadas por otras personas
+
+---
+
+#  Principales componentes de R
+
+## Funciones
+
+La mayoría de las funciones cuentan con documentación, manuales o ayudas. Esto se acceden con el comando `help()` o simplemente el simbolo `?`:
+
+
+```r
+help(runif)
+?runif
+```
+
+La página de ayuda generalmente explica lo que hace la función, y los argumentos que espera
+
+--
+
+
+```r
+runif(5, min = .4, max = .6)
+```
+
+```
+## [1] 0.4743041 0.4742531 0.5238307 0.4209825 0.4546778
+```
+
+--
+
+
+```r
+runif(5, .4, .6)
+```
+
+```
+## [1] 0.4125345 0.4896900 0.4668588 0.5799391 0.4160699
+```
+
+---
+
+#  Principales componentes de R
+
+## Funciones
+
+Ojo con la diferencia entre `=` y `&lt;-`:
+
+Ambos se pueden utilizar para definir nuevos objetos, pero:
+
+- &lt;- se utiliza exclusivamente para generar nuevos objetos
+
+- = se usa también para asociar un argumento de una función a un valor o variable
+
+
+```r
+# Ver la diferencia entre:
+x &lt;- log(10)
+x = log(10)
+runif(5, max = .5)
+runif(5, max &lt;- .5)
+```
+
+- Por eso es recomendable siempre utilizar &lt;- para definir variables, y = para hacer referencia a argumentos de funciones
+
+---
+
+#  Principales componentes de R
+
+## Comentarios
+
+El signo `#` antes de un texto indica que es un comentario, por lo que no se evalúa al correr el código
+
+
+```r
+# Aquí defino A
+A &lt;- 3
+B &lt;- 2 # Aquí defino B
+A+B
+```
+
+```
+## [1] 5
+```
+
+
+---
+
+# Principales componentes de R 
+
+## Paquetes
+
+- Los paquetes son la unidad básica de codigo compartible de R
+
+- Un paquete agrupa código, datos, documentación y pruebas, y es fácil de compartir con otros 
+
+- Existen **paquetes base**, que vienen precargados en R, y **paquetes contribuidos** por la comunidad de R
+
+- El gran poder y flexibilidad de R viene de estos paquetes contribuidos
+
+---
+
+# Principales componentes de R 
+
+## Instalación de paquetes de R
+
+Para utilizar paquetes contribuidos, primero se deben descargar, instalar y cargar para utilizarlos
+
+Se descargan principalmente desde:
+- CRAN (Comprehensive R Archive Network)
+- GitHub
+
+Para instalar desde CRAN:
+
+
+```r
+install.packages('paquete_ejemplo')
+```
+
+--
+
+- Para instalar desde GitHub:
+
+
+```r
+devtools::install_github('edgardo-cerda/elsoc')
+```
+
+---
+
+# Principales componentes de R 
+
+## Cargar paquetes de R
+
+Una vez instalados se deben cargar al ambiente de trabajo para poder ser utilizados
+
+
+```r
+library(paquete_ejemplo)
+require(paquete_ejemplo)
+```
+
+Las funciones, datos y otros objetos de un paquete estarán disponibles aunque no se muestren en el espacio de trabajo
+
+También se puede acceder a los elementos de un paquete anteponiendo el nombre del paquete y usando `::`
+
+
+
+```r
+paquete_ejemplo::funcion_ejemplo()
+```
+
+---
+
+# Estructuras de datos en R
+
+Las estructuras de datos más comunes y con las que vamos a lidiar más son:
+
+    1. Vectores
+    
+    2. Listas
+    
+    3. Data frames
+
+Hay muchos más, pero hay que priorizar las más relevantes
+
+---
+
+## Vectores
+
+Los vectores son la estructura de datos fundamental en R
+
+Los vectores son:
+
+--
+
+ - Unidimensionales (Nx1)
+ 
+--
+
+ - Homogéneos (todos sus elementos son de un mismo tipo)
+
+--
+
+Los vectores pueden ser de tipo:
+
+- numérico
+- texto
+- lógico
+- factores
+
+--
+
+Para definir un vector se usa la función `c()`
+
+---
+
+## Vectores
+
+### Vector numérico
+
+
+```r
+x &lt;- c(1, 2, 3, 4)
+x
+```
+
+```
+## [1] 1 2 3 4
+```
+
+```r
+class(x)
+```
+
+```
+## [1] "numeric"
+```
+
+---
+
+## Vectores
+
+### Vector de textos (characters)
+
+
+```r
+y &lt;- c('uno', 'A', 'cuadrado', 'manzana')
+y
+```
+
+```
+## [1] "uno"      "A"        "cuadrado" "manzana"
+```
+
+```r
+class(y)
+```
+
+```
+## [1] "character"
+```
+---
+
+## Vectores
+
+### Vector de valores lógicos (logical)
+
+
+```r
+z &lt;- c(TRUE, FALSE, FALSE, TRUE)
+z
+```
+
+```
+## [1]  TRUE FALSE FALSE  TRUE
+```
+
+```r
+class(z)
+```
+
+```
+## [1] "logical"
+```
+
+---
+
+## Vectores
+
+### Vector de factores
+
+Un tipo particular de tipo de vectores son los factores. Son útiles para almacenar datos categóricos, con opciones acotadas
+
+Las distintas opciones se denominan `levels` (niveles)
+
+R almacena los niveles como números, y asocia un `label` (etiqueta) a cada valor. Esto es más eficiente y permite que las funciones de R consideren el orden y la etiqueta de los valores en situaciones en que es relevante 
+
+---
+
+## Vectores
+
+### Vector de factores
+
+
+```r
+x &lt;- factor(c(1, 0, 0, 1),
+            levels = c(0, 1),
+            labels = c('hombre', 'mujer'))
+
+x
+```
+
+```
+## [1] mujer  hombre hombre mujer 
+## Levels: hombre mujer
+```
+
+Si no se especifican los `labels`, R asume que `labels = levels`
+
+---
+
+## Vectores
+
+### Obtener sub conjuntos de un vector
+
+Se puede acceder a los elementos de un vector especificando un vector índice, es decir, un vector de números dentro de `[]`:
+
+
+```r
+(x &lt;- seq(0, 50, 5))
+```
+
+```
+##  [1]  0  5 10 15 20 25 30 35 40 45 50
+```
+
+```r
+x[c(3, 4)]
+```
+
+```
+## [1] 10 15
+```
+
+Otra alternativa:
+
+
+```r
+y &lt;- c(3,4)
+x[y]
+```
+
+```
+## [1] 10 15
+```
+
+---
+
+## Vectores
+
+### Obtener sub conjuntos de un vector
+
+Otra alternativa para obtener subconjuntos es a través de vectores lógicos:
+
+
+```r
+(x &lt;- seq(0, 20, 5))
+```
+
+```
+## [1]  0  5 10 15 20
+```
+
+```r
+x[c(TRUE, FALSE, TRUE, TRUE, TRUE)]
+```
+
+```
+## [1]  0 10 15 20
+```
+
+---
+
+## Vectores
+
+### Vectores y funciones
+
+R está orientado a operaciones vectorizadas, es decir, que la mayoría de las funciones se aplican sobre vectores y entregan como resultados vectores 
+
+
+```r
+(x &lt;- seq(10, 100, 20))
+```
+
+```
+## [1] 10 30 50 70 90
+```
+
+```r
+log(x)
+```
+
+```
+## [1] 2.302585 3.401197 3.912023 4.248495 4.499810
+```
+
+--
+
+No siempre es así, va a depender de la función que estemos utilizando
+
+```r
+mean(x)
+```
+
+```
+## [1] 50
+```
+
+---
+
+## Vectores
+
+### Operadores lógicos
+
+Un tipo particular de función son los operadores lógicos: Son funciones que entregan como resultado vectores lógicos (`TRUE` o `FALSE`)
+
+Los más comunes son:
+
+- &lt; (Menor a), &gt; (Mayor a), &lt;= (Menor o igual a), &gt;= (Mayor o igual a)
+- == (Igual a), != (Distinto a)
+- %in% (Se encuentra en)
+- &amp; (Intersección de expresiones lógicas), | (Unión de expresiones lógicas)
+- ! (Negación de una expresión lógica)
+
+--
+
+Cuando se aplican sobre un vector el resultado  es también un vector:
+
+
+```r
+x &lt;- c(1, 10, 50, 100)
+x &gt; 20
+```
+
+```
+## [1] FALSE FALSE  TRUE  TRUE
+```
+
+---
+
+## Vectores
+
+### Valores faltantes (NA)
+
+Cuando no todos los componentes de un vector son conocidos se le asigna un valor especial: `NA`
+
+La función `is.na()` nos indica si un valor es NA o no:
+
+
+```r
+x &lt;- c(10, 0, NA)
+is.na(x)
+```
+
+```
+## [1] FALSE FALSE  TRUE
+```
+---
+
+## Vectores
+
+### Valores faltantes (NA)
+
+Los `NA` son "contagiosos". Cuando se trata de aplicar funciones u operaciones con NA, el resultado es habitualmente NA
+
+
+```r
+1 + 1 + NA
+```
+
+```
+## [1] NA
+```
+
+```r
+x &lt;- c(10, 0, NA)
+mean(x)
+```
+
+```
+## [1] NA
+```
+
+--
+
+Muchas funciones incluyen la opción `na.rm`, que remueve los casos NA antes de realizar los cálculos:
+
+
+```r
+mean(x, na.rm = TRUE)
+```
+
+```
+## [1] 5
+```
+
+---
+
+## Listas
+
+En R, una lista es un objeto consistente en una colección ordenada de objetos, conocidos como componentes
+
+Los componentes pueden ser de cualquier tipo
+
+--
+
+Se crean con la funcion `list()`
+
+
+```r
+(x &lt;- list('holi', c(1, 2, 3), c(TRUE, FALSE)))
+```
+
+```
+## [[1]]
+## [1] "holi"
+## 
+## [[2]]
+## [1] 1 2 3
+## 
+## [[3]]
+## [1]  TRUE FALSE
+```
+
+---
+
+## Listas
+
+Los componentes de una lista siempre están enumerados, y pueden referirse por dicho número
+
+Para acceder a los componentes se usan dobles corchetes `[[]]`:
+
+
+```r
+x &lt;- list('holi', c(1, 2, 3), c(TRUE, FALSE))
+x[[1]]
+```
+
+```
+## [1] "holi"
+```
+
+```r
+x[[2]]
+```
+
+```
+## [1] 1 2 3
+```
+
+---
+
+## Listas
+
+Los componentes de una lista también pueden tener nombre, y acceder a éstos con el operador `$`:
+
+
+```r
+x &lt;- list(var1 = 'holi', var2 = c(1,2,3), asd = c(TRUE, FALSE))
+x$var1
+```
+
+```
+## [1] "holi"
+```
+
+```r
+x$asd
+```
+
+```
+## [1]  TRUE FALSE
+```
+
+---
+
+## Data Frames
+
+Probablemente el objeto que más vamos a utilizar son los **Data Frames**
+
+--
+
+Las bases de datos generalmente vienen en el formato de observaciones en filas y variables en columnas:
+
+| nombre    |  m0_sexo  | edad | 
+|:--------	|:-------|:----:|
+| Matías 	  | hombre |  23  |
+| Camila  	| mujer  |  50  |
+| Valentina | mujer  |  55  |
+| Ernesto 	| hombre |  15  |
+
+Los data frames tienen la ventaja de poseer este mismo formato, por lo que van a ser particularmente convienientes
+
+---
+
+## Data Frames
+
+Los data frames son un caso particular de una lista, en que **todos sus componentes son vectores de igual longitud con un nombre asociado**
+
+Se pueden concebir como conjuntos de datos donde las filas representan casos y las columnas variables, así que se ve igual a las bases de datos de otros programas estadísticos como SPSS, Stata o Excel.
+
+--
+
+A diferencia de los vectores, los data frames son:
+
+- Bi-dimensionales: N filas x M columnas
+
+--
+
+- Heterogéneos: variables pueden ser de distinto tipo entre sí (pero no dentro de una misma columna)
+
+--
+
+- Rectangulares: Todas las columnas tienen igual número de filas
+
+---
+
+## Data Frames
+
+Para crear un data frame se utiliza la función `data.frame()`
+
+
+```r
+(x &lt;- data.frame(nombre = c('Matías', 'Camila', 'Valentina', 'Ernesto'), 
+                m0_sexo = c('hombre', 'mujer', 'mujer', 'hombre'), 
+                edad = c(23, 50, 55, 15),
+                ingresos = c(350000, 1200000, 400000, NA)))
+```
+
+```
+##      nombre m0_sexo edad ingresos
+## 1    Matías  hombre   23   350000
+## 2    Camila   mujer   50  1200000
+## 3 Valentina   mujer   55   400000
+## 4   Ernesto  hombre   15       NA
+```
+
+--
+
+Si tratamos de definir un data frame con una variable sin nombre, la función le va a asignar uno de forma automática:
+
+
+---
+
+## Data Frames
+
+Se puede acceder a los elementos de un data frame de distintas formas:
+
+- Se puede acceder a sus columnas (vectores) con el operador `$` (al igual que con las listas)
+
+
+```r
+x$nombre
+```
+
+```
+## [1] "Matías"    "Camila"    "Valentina" "Ernesto"
+```
+
+```r
+x$edad
+```
+
+```
+## [1] 23 50 55 15
+```
+
+---
+
+## Data Frames
+
+- También se puede acceder especificando el nombre o índice de una columna, usando `[]`:
+
+
+```r
+x[c('edad', 'm0_sexo')]
+```
+
+```
+##   edad m0_sexo
+## 1   23  hombre
+## 2   50   mujer
+## 3   55   mujer
+## 4   15  hombre
+```
+
+```r
+x[c(1, 2)]
+```
+
+```
+##      nombre m0_sexo
+## 1    Matías  hombre
+## 2    Camila   mujer
+## 3 Valentina   mujer
+## 4   Ernesto  hombre
+```
+
+---
+
+## Data Frames
+
+- Para acceder a elementos dentro de una columna, se hace especificando filas y columnas (como una matriz), usando `[]`:
+
+
+```r
+x[2:3, 'nombre']
+```
+
+```
+## [1] "Camila"    "Valentina"
+```
+
+```r
+x[2:3, c(1,3)]
+```
+
+```
+##      nombre edad
+## 2    Camila   50
+## 3 Valentina   55
+```
+
+--
+
+Como las columnas son vectores, se puede acceder a elementos específicos dentro de estas con las mismas reglas que se aplican para los vectores, usando `$` y `[]`:
+
+
+```r
+x$nombre[c(3,4)]
+```
+
+```
+## [1] "Valentina" "Ernesto"
+```
+
+
+---
+
+## Data Frames
+
+Una vez creado el data frame, se pueden agregar columnas usando `$`:
+
+
+```r
+x$edad2 &lt;- 19 + x$edad
+x
+```
+
+```
+##      nombre m0_sexo edad ingresos edad2
+## 1    Matías  hombre   23   350000    42
+## 2    Camila   mujer   50  1200000    69
+## 3 Valentina   mujer   55   400000    74
+## 4   Ernesto  hombre   15       NA    34
+```
+
+---
+
+## Data Frames
+
+De igual forma podemos modificar una variable ya existente:
+
+
+```r
+x$edad &lt;- log(x$edad)
+x
+```
+
+```
+##      nombre m0_sexo     edad ingresos edad2
+## 1    Matías  hombre 3.135494   350000    42
+## 2    Camila   mujer 3.912023  1200000    69
+## 3 Valentina   mujer 4.007333   400000    74
+## 4   Ernesto  hombre 2.708050       NA    34
+```
+
+---
+class: center, middle
+
+# Parte II: Trabajando con datos reales en R
+
+---
+
+# Trabajando con datos reales en R
+
+Los pasos que generalmente vamos a realizar y que vamos a ver son:
+
+- Importar datos
+- Preparar datos para su análisis
+- Inspeccionar y visualizar datos
+- Análisis de datos
+
+--
+
+Para estos pasos vamos a utilizar una combinación de funciones base de R, y funciones del paquete `Tidyverse`
+
+---
+
+# Tidyverse
+
+Trabajar con datos reales en R se puede hacer de distintas formas, pero una de las más convenientes es utilizando el paquete `Tidyverse`
+
+--
+
+Tidyverse es un paquete que agrupa una colección de otros paquetes que siguen una misma "filosofía" para trabajar con datos
+
+--
+
+Permite realizar todo tipo de operaciones, transformaciones y modelamiento de datos de manera ordenada y simplificada, descomponiendo las distintas etapas en funciones concatenables y compatibles entre sí
+
+---
+
+.pull-left[ 
+
+# Tidyverse
+
+Algunos de los más importantes son:
+
+- `readr`, `readxl` y `haven`: Para importar datos en distintos formatos 
+ 
+- `dplyr` y `tidyr`: Para manipular y trabajar con data frames
+ 
+- `ggplot2`: Para generar gráficos
+
+- `purrr`: Para trabajar con funciones
+ 
+]
+
+.pull-right[ 
+![](tidyverse-logos.png)
+]
+
+---
+
+
+# Importar datos
+
+Lo primero que generalmente vamos a necesitar hacer es importar los datos con los que trabajaremos a R
+
+--
+
+Para eso, antes necesitamos definir el director donde se encuentran los datos que vamos a utilizar y con los que vamos a trabajar. 
+
+El Directorio de trabajo es la carpeta en nuestro computador donde se almacenan y donde R buscará los archivos con los que estamos trabajando
+
+--
+
+Esto se puede hace con la función `setwd()`
+
+
+```r
+setwd('C:/Users/edgar/Desktop/curso_intro_r')
+```
+
+Si estoy trabajando en Markdown, el directorio de trabajo se fija automáticamente en la carpeta donde se encuentra el script
+
+---
+
+# Importar datos
+
+Una vez fijado el directorio, para importar datos hay distintas opciones dependiendo del formato de los datos de origen:
+
+- Objetos de R: `load()` 
+
+- CSV: `readr::read_csv()`
+
+- Excel: `readxl::read_xls()` y `readxl::read_xlsx()`
+
+- Stata, SPSS: `haven::read_dta` y `haven::read_spss`
+
+A excepción de la función `load()`, los datos importados se almacenarán como data frames
+
+---
+
+# Importar datos
+
+Para los ejemplos siguientes utilizaremos la base de datos longitudinal ELSOC 2016-2021. Algunas opciones para descargar estos datos son:
+
+
+```r
+load(file.path('inputs', 'ELSOC_Long_2016_2021_v1.00_R.RData'))
+```
+
+
+```r
+elsoc &lt;- haven::read_dta(file = file.path('inputs', 'ELSOC_Long_2016_2021_v1.00_Stata14.dta'))
+```
+
+La función load también permite cargar archivos directamente desde una URL:
+
+```r
+load(url("https://dataverse.harvard.edu/api/access/datafile/6160173")) 
+```
+
+---
+
+# Preparar datos para su análisis
+
+Los datos generalmente no vienen en un formato apto u óptimo para su análisis, por lo que una gran parte del análisis de datos es en realidad el preparar los datos para su uso
+
+Para esta preparación vamos a usar principalmente las funciones de los paquetes `dplyr` y `tidyr`. Estos paquetes proveen una "gramática" para la manipulación de datos
+
+---
+
+# Preparar datos para su análisis
+
+Las funciones claves a entender y usar son: 
+
+- `select`: Para seleccionar variables, generalmente según sus nombres
+
+- `filter`: Para seleccionar observaciones según alguna condición lógica
+
+- `mutate`: Para crear o modificar variables 
+
+- `summarise`: Para "resumir" filas a valores agregados
+
+--
+
+Todas fucionan igual:
+
+--
+
+- Se utilizan sobre un data frame (es el primer argumento)
+
+--
+
+- Los demás argumentos describen qué hacer con el data frame
+
+--
+
+- El resultado es un data frame nuevo
+
+---
+
+## Filter
+
+La función Filter filtra las observaciones del dataframe, manteniendo aquellas que cumplen alguna condición lógica, y eliminando el resto:
+
+
+```r
+elsoc_hombres &lt;- dplyr::filter(elsoc_long_2016_2021, m0_sexo == 1)
+
+table(elsoc_long_2016_2021$m0_sexo)
+```
+
+```
+## 
+##    1    2 
+## 5846 9459
+```
+
+```r
+table(elsoc_hombres$m0_sexo)
+```
+
+```
+## 
+##    1 
+## 5846
+```
+
+---
+
+## Select
+
+Select manteniene las variables que especifico dentro del dataframe, y elimina todas las demás:
+
+Se especifican usando el nombre de las variables, que pueden llamarse como texto o simplemente con el nombre de la variable
+
+
+
+```r
+elsoc_reducido &lt;- dplyr::select(elsoc_long_2016_2021, ola, tipo_atricion, 'm0_sexo', 'm0_edad')
+elsoc_reducido[1:5,]
+```
+
+```
+##   ola tipo_atricion m0_sexo m0_edad
+## 1   1             1       2      64
+## 2   1             1       2      60
+## 3   1             1       2      26
+## 4   1             1       1      51
+## 5   1             8       1      69
+```
+
+---
+
+## Select
+
+También se pueden utilizar funciones auxiliares que incrementan la utilidad de select:
+
+- `starts_with("abc")`: selecciona las variables cuyos nombre empiezan con "abc"
+
+- `ends_with("abc")`: selecciona las variables cuyos nombre terminan con "abc"
+
+- `contains("abc")`: selecciona las variables cuyos nombre contienen "abc"
+
+- `num_range("abc", 1:3)`: selecciona las variables cuyos nombre son "abc1", "abc2" y "abc3"
+
+
+---
+
+## Mutate
+
+Mutate modifica variables existentes o crea variables nuevas en el dataframe:
+
+
+```r
+elsoc_long_2016_2021 &lt;- dplyr::mutate(elsoc_long_2016_2021, 
+                                      edadx2 = m0_edad*2)
+
+elsoc_long_2016_2021[1:5, c('m0_edad', 'edadx2')]
+```
+
+```
+##   m0_edad edadx2
+## 1      64    128
+## 2      60    120
+## 3      26     52
+## 4      51    102
+## 5      69    138
+```
+
+---
+
+## Mutate
+
+Si uso un nombre de variable que ya existe, se reemplaza por la nueva:
+
+
+```r
+elsoc_long_2016_2021 &lt;- dplyr::mutate(elsoc_long_2016_2021, 
+                                      edadx2 = log(edadx2))
+
+elsoc_long_2016_2021[1:5, c('m0_edad', 'edadx2')]
+```
+
+```
+##   m0_edad   edadx2
+## 1      64 4.852030
+## 2      60 4.787492
+## 3      26 3.951244
+## 4      51 4.624973
+## 5      69 4.927254
+```
+
+---
+
+## Summarise
+
+
+Para obtener valores resumidos por fila según alguna función (media, mediana, número de casos, etc.):
+
+
+```r
+dplyr::summarise(elsoc_long_2016_2021, 
+                 promedio_edad = mean(m0_edad), 
+                 mediana_edad = median(m0_edad))
+```
+
+```
+##   promedio_edad mediana_edad
+## 1      47.78229           48
+```
+
+--
+
+Algunas de las funciones de resumen más útiles son: `mean()`, `median()`, `n()`, `sd()`, `sum()`, entre otras
+
+--
+
+`summarise` es mucho más útil cuando se usa en combinación con `group_by`, que genera resultados resumidos por grupo. 
+
+
+---
+
+## Operador pipe `%&gt;%` 
+
+.pull-left[ 
+
+Hasta el momento todo bien con estas funciones, pero la verdadera gracia de tidyverse se ve cuando usamos el operador pipe (`%&gt;%`)
+
+`%&gt;%` sirve para "concatenar" series de funciones del Tidyverse
+
+Tan relevante que RStudio viene con un atajo para escribirlo: `ctrl` + `shift` + `M`
+
+]
+
+.pull-right[ 
+![](ceci-nest-pas-un-pipe.png)
+]
+
+---
+
+## Operador pipe `%&gt;%` 
+
+Lo que hace es simplemente traspasar un data frame a la siguiente función como primer argumento
+
+Eso significa que:
+
+
+```r
+dplyr::filter(elsoc_long_2016_2021, m0_sexo == 2)
+```
+
+Es equivalente a:
+
+
+```r
+elsoc_long_2016_2021 %&gt;% dplyr::filter(m0_sexo == 2)
+```
+
+
+---
+
+## Operador pipe `%&gt;%` 
+
+La gracia es que puedo concatenar múltiples operaciones:
+
+
+```r
+elsoc_long_2016_2021 %&gt;% 
+  dplyr::filter(m0_sexo == 2) %&gt;% 
+  dplyr::summarise(edad_media = mean(m0_edad, na.rm = TRUE),
+                   edad_mediana = median(m0_edad, na.rm = TRUE))
+```
+
+```
+##   edad_media edad_mediana
+## 1   48.25246           49
+```
+
+Esto permite descomponer todas las transformaciones que se necesitan realizar sobre un data frame en funciones específicas aplicadas de forma concatenada
+
+--
+
+Reduce la complejidad de un problema y permite tener codigos mucho más simples y ordenados
+
+---
+
+## Group_by
+
+Finalmente, la función `group_by()` permite realizar operaciones agrupadas según alguna variable:
+
+
+```r
+elsoc_long_2016_2021 %&gt;%
+  dplyr::group_by(ola) %&gt;% 
+  dplyr::summarise(edad_promedio = mean(m0_edad),
+                   edad_maxima = max(m0_edad)) %&gt;% 
+  dplyr::ungroup()
+```
+
+```
+## # A tibble: 5 × 3
+##     ola edad_promedio edad_maxima
+##   &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;
+## 1     1          46.1          88
+## 2     2          47.6          89
+## 3     3          47.1          90
+## 4     4          48.8          92
+## 5     5          49.4          86
+```
+
+---
+
+# Análisis estadísticos básicos
+
+## Estadísticas descriptivas para valores numéricos
+
+Algunas estadísticas descriptivas básicas para variables continuas son la media, mediana, y desviación estándar:
+
+
+```r
+mean(elsoc_long_2016_2021$m0_edad, na.rm = TRUE)
+```
+
+```
+## [1] 47.78229
+```
+
+```r
+median(elsoc_long_2016_2021$m0_edad, na.rm = TRUE)
+```
+
+```
+## [1] 48
+```
+
+```r
+sd(elsoc_long_2016_2021$m0_edad, na.rm = TRUE)
+```
+
+```
+## [1] 15.38696
+```
+
+---
+
+## Estadísticas descriptivas para valores numéricos
+
+Para estadísticas por subgrupo podemos utilizar las funciones de dplyr::
+
+
+```r
+elsoc_long_2016_2021 %&gt;%
+  dplyr::group_by(ola) %&gt;%
+  dplyr::summarise(edad_promedio = mean(m0_edad, na.rm = TRUE))
+```
+
+```
+## # A tibble: 5 × 2
+##     ola edad_promedio
+##   &lt;dbl&gt;         &lt;dbl&gt;
+## 1     1          46.1
+## 2     2          47.6
+## 3     3          47.1
+## 4     4          48.8
+## 5     5          49.4
+```
+
+---
+
+## Estadísticas descriptivas para valores categóricos
+
+Si pasamos las variables a factor podemos agregar una etiqueta a los valores obtenidos
+
+
+```r
+elsoc_long &lt;- elsoc_long_2016_2021 %&gt;% 
+  # Filtrar por atrición y casos perdidos
+    dplyr::filter(tipo_atricion == 1,
+                  !c17 %in% c(-666, -777, -888, -999),
+                  !c05_08 %in% c(-666, -777, -888, -999)) %&gt;% 
+  # Crear variables nuevas con etiquetas
+  dplyr::mutate(
+    ola = factor(ola, labels = c('2016', '2017', '2018', '2019', '2021')),
+    sexo = factor(m0_sexo, labels = c('Hombre', 'Mujer')),
+    # Generar variable de identificación con coalición política
+    idcoal = factor(c17, 
+                            labels = c('Chile Vamos','Nueva Mayoría','Frente Amplio', 'Otra','Ninguna')),
+    # Generar variable de confianza en el presidente
+    conf_presi = factor(c05_08,
+                                labels = c('Nada', 'Poco', 'Algo', 'Bastante', 'Mucho'))) %&gt;% 
+    dplyr::select(idencuesta, m0_sexo, ola, m0_edad, idcoal, conf_presi)
+```
+
+---
+
+## Estadísticas descriptivas para valores categóricos
+
+Para variables categóricas es más relevante el análisis de la frecuencia:
+
+
+```r
+table(elsoc_long$idcoal)
+```
+
+```
+## 
+##   Chile Vamos Nueva Mayoría Frente Amplio          Otra       Ninguna 
+##           613           551           360            24          4273
+```
+
+--
+
+El output de la función table es un objeto que se puede almacenar:
+
+
+```r
+tabla1 &lt;- table(elsoc_long$idcoal)
+prop.table(tabla1)
+```
+
+```
+## 
+##   Chile Vamos Nueva Mayoría Frente Amplio          Otra       Ninguna 
+##   0.105308366   0.094657275   0.061845044   0.004123003   0.734066312
+```
+
+---
+
+## Estadísticas descriptivas para valores categóricos
+
+Si necesito realizar análisis de más de una variable:
+
+
+```r
+(tabla2 &lt;- table(elsoc_long$idcoal, elsoc_long$conf_presi))
+```
+
+```
+##                
+##                 Nada Poco Algo Bastante Mucho
+##   Chile Vamos    203  103  155      109    43
+##   Nueva Mayoría  138  111  163       95    44
+##   Frente Amplio  180   93   63       19     5
+##   Otra            12    4    5        2     1
+##   Ninguna       2049  932  921      291    80
+```
+
+---
+
+## Estadísticas descriptivas para valores categóricos
+
+Y para obtener la frecuencia relativa de cada categoría lo hago igual que antes:
+
+
+```r
+prop.table(tabla2)
+```
+
+```
+##                
+##                         Nada         Poco         Algo     Bastante
+##   Chile Vamos   0.0348737330 0.0176945542 0.0266277272 0.0187253049
+##   Nueva Mayoría 0.0237072668 0.0190688885 0.0280020615 0.0163202199
+##   Frente Amplio 0.0309225219 0.0159766363 0.0108228827 0.0032640440
+##   Otra          0.0020615015 0.0006871672 0.0008589589 0.0003435836
+##   Ninguna       0.3520013743 0.1601099467 0.1582202371 0.0499914104
+##                
+##                        Mucho
+##   Chile Vamos   0.0073870469
+##   Nueva Mayoría 0.0075588387
+##   Frente Amplio 0.0008589589
+##   Otra          0.0001717918
+##   Ninguna       0.0137433431
+```
+
+---
+
+## Estadísticas descriptivas para valores categóricos
+
+Puedo modificar el margen sobre el que se calcula el porcentaje:
+
+
+```r
+prop.table(tabla2, margin = 1)
+```
+
+```
+##                
+##                       Nada       Poco       Algo   Bastante      Mucho
+##   Chile Vamos   0.33115824 0.16802610 0.25285481 0.17781403 0.07014682
+##   Nueva Mayoría 0.25045372 0.20145191 0.29582577 0.17241379 0.07985481
+##   Frente Amplio 0.50000000 0.25833333 0.17500000 0.05277778 0.01388889
+##   Otra          0.50000000 0.16666667 0.20833333 0.08333333 0.04166667
+##   Ninguna       0.47952258 0.21811374 0.21553943 0.06810204 0.01872221
+```
+
+---
+
+## Estadísticas descriptivas para valores categóricos
+
+Puedo modificar el margen sobre el que se calcula el porcentaje:
+
+
+```r
+prop.table(tabla2, margin = 2)
+```
+
+```
+##                
+##                        Nada        Poco        Algo    Bastante       Mucho
+##   Chile Vamos   0.078621224 0.082864039 0.118592196 0.211240310 0.248554913
+##   Nueva Mayoría 0.053446940 0.089300080 0.124713083 0.184108527 0.254335260
+##   Frente Amplio 0.069713400 0.074818986 0.048201989 0.036821705 0.028901734
+##   Otra          0.004647560 0.003218021 0.003825555 0.003875969 0.005780347
+##   Ninguna       0.793570875 0.749798874 0.704667177 0.563953488 0.462427746
+```
+
+---
+
+## Modelos de regresion
+
+
+
+```r
+m1 &lt;- lm(conf_presi %in% c('Bastante', 'Mucho') ~ 1 + m0_sexo + m0_edad + ola, 
+          data = elsoc_long)
+
+m2 &lt;- glm(conf_presi %in% c('Bastante', 'Mucho') ~ 1 + m0_sexo + m0_edad + ola, 
+          family = binomial(link='logit'),
+          data = elsoc_long)
+```
+
+---
+
+## Modelos de regresion
+
+
+```r
+modelsummary::modelsummary(list(m1, m2),
+                           estimate = "{estimate}{stars} ({std.error})",
+                           statistic = NULL,
+                           gof_map = c('nobs', 'adj.r.squared'))
+```
+
+&lt;table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 1 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Model 2 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; (Intercept) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.002 (0.018) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; −3.449*** (0.209) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; m0_sexo &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; −0.010 (0.007) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; −0.103 (0.080) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; m0_edad &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.003*** (0.000) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.035*** (0.003) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ola2017 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.008 (0.011) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.061 (0.110) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ola2018 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.025* (0.011) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.184+ (0.107) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ola2019 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; −0.101*** (0.011) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; −1.421*** (0.156) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;box-shadow: 0px 1px"&gt; ola2021 &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt; −0.082*** (0.011) &lt;/td&gt;
+   &lt;td style="text-align:center;box-shadow: 0px 1px"&gt; −0.981*** (0.134) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Num.Obs. &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 7331 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 7331 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; R2 Adj. &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.045 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+---
+
+# Visualización de datos con ggplot2
+
+Para finalizar, veremos muy rápidamente el paquete de gráficos `ggplot2`. Este paquete es extremadamente útil para hacer gráficos complejos, pero de forma sencilla y ordenada
+
+Usa una gramática de gráficos que provee un marco para construir gráficos por etapas (`layers`)
+
+La específicación básica es primero seleccionar qué variables son "mapeadas" a qué aspecto del gráfico (llamado `aesthetics`), y luego elegir una forma (llamado `geom`) para mostrar ese gráfico
+
+
+---
+
+# Visualización de datos con ggplot2
+
+La sintaxis estándar es del tipo:
+
+
+```r
+ggplot(dataset, aes(x=xvar, y=yvar)) + geom_function()
+```
+
+La sintaxis usa los datos en `dataset`, pone las variables `xvar` e `yvar` en los ejes x e y, respectivamente, con la función `aes()`, y luego usa `geom_function()` para producir las formas del gráfico
+
+Por ejemplo, `geom_point()` genera un gráfico de puntos, y `geom_boxplot()` uno de boxplots 
+
+En `aes()` se pueden especificar más variales que controlan distintos aspectos del gráfico, como el color, tamaño y forma de los objetos graficados
+
+
+---
+class: middle
+
+# Visualización de datos con ggplot2
+
+
+```r
+g1 &lt;- data.frame(prop.table(tabla1))
+
+ggplot(g1, aes(y = Freq, x = Var1)) + 
+  geom_col()
+```
+
+&lt;img src="introduccion_R_files/figure-html/unnamed-chunk-60-1.png" width="400px" height="400px" /&gt;
+
+---
+class: middle
+
+# Visualización de datos con ggplot2
+
+
+```r
+ggplot(data = elsoc_long, 
+       aes(x = m0_edad, color = idcoal)) + 
+  geom_density()
+```
+
+&lt;img src="introduccion_R_files/figure-html/unnamed-chunk-61-1.png" width="400px" height="400px" /&gt;
+
+---
+
+# Visualización de datos con ggplot2
+
+
+```r
+elsoc_long %&gt;% 
+  dplyr::filter(ola == '2019' &amp; !is.na(idcoal)) %&gt;% 
+  ggplot(aes(y = m0_edad, x = idcoal)) + 
+  geom_boxplot()
+```
+
+&lt;img src="introduccion_R_files/figure-html/unnamed-chunk-62-1.png" width="400px" height="400px" /&gt;
+
+---
+
+# Visualización de datos con ggplot2
+
+
+```r
+elsoc_long %&gt;% 
+  dplyr::filter(ola == '2019' &amp; !is.na(idcoal)) %&gt;% 
+  ggplot(aes(y = m0_edad, x = idcoal, fill = m0_sexo)) + 
+  geom_boxplot()
+```
+
+&lt;img src="introduccion_R_files/figure-html/unnamed-chunk-63-1.png" width="400px" height="400px" /&gt;
+
+
+---
+
+# Visualización de datos con ggplot2
+
+Esto es lo más básico asociado a ggplot, pero hay infinidad de opciones para editar
+
+Prácticamente todos los aspectos de la estética del gráfico es editable siguiendo la lógica de capas
+
+Para profundizar en esto se hará un curso específicamente asociado a la visualización de datos longitudinales con ggplot el martes 20 de julio a las 14:00
+
+---
+
+# Seguir aprendiendo
+
+## Lecturas sugeridas (todos gratis)
+
+Para R introductorio aplicado al análisis de datos:
+
+- Irizarry, R. (2021) Introduction to Data Science (https://rafalab.github.io/dsbook/)
+- Wikham, H. &amp; Grolemund, G. (2017) R for Data Science (https://r4ds.had.co.nz/)
+
+Para visualización de datos en R:
+
+- Healy, K. (2018) Data Visualization. A Practical Introduction (https://socviz.co/)
+- Chang, W. (2021) R Graphics Cookbook (https://r-graphics.org/)
+
+Para temas más avanzados en R: 
+
+- Wikham, H. (2019) Advanced R (https://adv-r.hadley.nz/index.html)
+- Lovelace, R. (2021) Efficient R programming (https://csgillespie.github.io/efficientR/)
+
+---
+
+# Seguir aprendiendo
+
+## Otros muy importantes:
+
+- Uso de documentación de R
+
+- Función `help()` o `?`
+
+- Google
+
+- Stackoverflow
+
+- Asistir a cursos de Introducción al manejo de bases de datos longitudinales con ELSOC y curso de Visualización de datos longitudinales en R
+
+---
+
+class: center, middle
+
+## Gracias!
+
+
+
+
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create();
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

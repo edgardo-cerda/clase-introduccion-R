@@ -1,0 +1,1311 @@
+---
+title: "Introducción a R"
+author: "Edgardo Cerda (edgardo.cerda.e@gmail.com)"
+date: "Julio, 2022"
+output:
+  xaringan::moon_reader:
+    highlightStyle: github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+
+```
+
+
+# Contenidos 
+
+En este curso veremos:
+
+- Parte I: Componentes y funcionamiento básico de R
+
+  - Qué es R
+  - Cómo utilizar R desde RStudio
+  - Cuáles son y cómo se utilizan los principales componentes de R
+  - Cuáles son las principales estructuras de datos en R y cómo se utilizan
+
+--
+
+- Parte II: Trabajando con datos reales en R
+
+  - Cómo importar y manipular datos
+  - Algunas funciones de análisis de datos
+  - Cómo visualizar datos
+
+---
+class: center, middle
+
+# Parte I: Componentes y funcionamiento básico de R
+
+---
+
+# ¿Qué es R?
+
+- R es un entorno y lenguaje de programación con un enfoque en la manipulación de datos, cálculos y gráficos
+
+--
+
+- Fue desarrollado por estadísticos específicamente para funcionar como entorno interactivo para el análisis de datos
+
+--
+
+- Es a la vez un lenguaje de programación bien desarrollado, simple y efectivo, por lo que ha funcionado como un vehículo para el desarrollo de nuevos métodos de análisis interactivo de datos
+
+--
+
+- Gracias a esto es muy dinámico y flexible
+
+
+---
+
+# ¿Por qué aprender R?
+
+- Es un programa libre y de fuente abierta
+
+--
+
+- Es muy fácil hacer contribuciones a R, por lo que colección de herramientas disponibles esta muy actualizada y crece más cada día
+
+--
+
+- Comunidad en torno a R es grande, creciente y muy activa
+
+--
+
+- Contiene una amplia, coherente e integrada colección de herramientas para análisis de datos
+
+--
+
+- El sistema de gráficos es simple y poderoso -> fácil realizar gráficos de gran calidad
+
+--
+
+- Es simple realizar reportes, documentos y presentaciones reproducibles (esta presentación está hecha en R)
+
+--
+
+- Scripts y objetos de datos fácilmente compartibles entre distintas plataformas
+
+
+---
+
+# Comenzar a usar R: RStudio
+
+Se puede trabajar directamente en la consola de R, pero es preferible y más simple utilizar una interfaz gráfica
+
+--
+
+La más utilizada y recomendada es, por lejos, **RStudio**
+
+--
+
+Principales componentes:
+
+- Consola
+- Editor de scripts (códigos)
+- Ventana de Environment (ambiente)
+- Ventana de ayuda, gráficos, archivos y otros
+
+---
+
+# Comenzar a usar R: Formato de outputs
+
+El formato básico de los códigos en R es el formato "R Script" o "archivo R" (.R)
+
+--
+
+Es un archivo que permite almacenar y ejecutar los códigos de R. Al ejecutarlo, los outputs se generan en las ventanas de R. Es equivalente a escribir los códigos en la consola.
+
+--
+
+Un formato un poco más avanzado, pero mucho más poderoso es el formato Rmarkdown (.Rmd).
+
+--
+
+Es un formato que permite almacenar y ejecutar códigos de R (al igual .R), pero que al ejecutarlo genera un archivo o reporte independiente en distintos formatos, dependiendo de las especificaciones que uno define.
+
+Los más comunes son archivos html, pdf, word, o presentaciones
+
+--
+
+Para utilizarlo se debe instalar el paquete de R 'rmarkdown' primero
+
+---
+
+#  Principales componentes de R
+
+## Objetos
+
+R es un lenguaje orientado a **objetos**, por lo que la mayoría de las cosas con las que trabajaremos en R son en realidad objetos
+
+Los objetos son las entidades que R crea y manipula. Pueden ser de muchos tipos:  variables, datos, funciones, resultados, etc.
+
+--
+
+Para definir un nuevo objeto usamos el operador <-
+
+```{r}
+a <- 100
+a+2
+```
+
+--
+La colección de objetos creados durante una sesión de trabajo se denomina ***espacio de trabajo*** (workspace). Estos se pueden guardar en un archivo para su uso posterior
+
+---
+
+#  Principales componentes de R
+
+## Funciones
+
+Una vez definidos los objetos, el proceso de análisis de datos puede ser descrito como una serie de funciones aplicadas a objetos
+
+En general, se requiere utilizar paréntesis para ejecutar una función, y habitualmente se deben especificar uno o más argumentos, aunque también pueden no necesitar argumentos
+
+```{r}
+log(a)
+runif(5)
+```
+
+--
+
+R viene construido con un set de funciones, pero se pueden crear nuevas funciones o, mucho mejor aún, agregar funciones creadas por otras personas
+
+---
+
+#  Principales componentes de R
+
+## Funciones
+
+La mayoría de las funciones cuentan con documentación, manuales o ayudas. Esto se acceden con el comando `help()` o simplemente el simbolo `?`:
+
+```{r, eval=FALSE}
+help(runif)
+?runif
+```
+
+La página de ayuda generalmente explica lo que hace la función, y los argumentos que espera
+
+--
+
+```{r}
+runif(5, min = .4, max = .6)
+```
+
+--
+
+```{r}
+runif(5, .4, .6)
+```
+
+---
+
+#  Principales componentes de R
+
+## Funciones
+
+Ojo con la diferencia entre `=` y `<-`:
+
+Ambos se pueden utilizar para definir nuevos objetos, pero:
+
+- <- se utiliza exclusivamente para generar nuevos objetos
+
+- = se usa también para asociar un argumento de una función a un valor o variable
+
+```{r, eval=FALSE}
+# Ver la diferencia entre:
+x <- log(10)
+x = log(10)
+runif(5, max = .5)
+runif(5, max <- .5)
+```
+
+- Por eso es recomendable siempre utilizar <- para definir variables, y = para hacer referencia a argumentos de funciones
+
+---
+
+#  Principales componentes de R
+
+## Comentarios
+
+El signo `#` antes de un texto indica que es un comentario, por lo que no se evalúa al correr el código
+
+```{r}
+# Aquí defino A
+A <- 3
+B <- 2 # Aquí defino B
+A+B
+```
+
+
+---
+
+# Principales componentes de R 
+
+## Paquetes
+
+- Los paquetes son la unidad básica de codigo compartible de R
+
+- Un paquete agrupa código, datos, documentación y pruebas, y es fácil de compartir con otros 
+
+- Existen **paquetes base**, que vienen precargados en R, y **paquetes contribuidos** por la comunidad de R
+
+- El gran poder y flexibilidad de R viene de estos paquetes contribuidos
+
+---
+
+# Principales componentes de R 
+
+## Instalación de paquetes de R
+
+Para utilizar paquetes contribuidos, primero se deben descargar, instalar y cargar para utilizarlos
+
+Se descargan principalmente desde:
+- CRAN (Comprehensive R Archive Network)
+- GitHub
+
+Para instalar desde CRAN:
+
+```{r, eval=FALSE}
+install.packages('paquete_ejemplo')
+```
+
+--
+
+- Para instalar desde GitHub:
+
+```{r, eval=FALSE}
+devtools::install_github('edgardo-cerda/elsoc')
+```
+
+---
+
+# Principales componentes de R 
+
+## Cargar paquetes de R
+
+Una vez instalados se deben cargar al ambiente de trabajo para poder ser utilizados
+
+```{r, eval=FALSE}
+library(paquete_ejemplo)
+require(paquete_ejemplo)
+```
+
+Las funciones, datos y otros objetos de un paquete estarán disponibles aunque no se muestren en el espacio de trabajo
+
+También se puede acceder a los elementos de un paquete anteponiendo el nombre del paquete y usando `::`
+
+
+```{r, eval=FALSE}
+paquete_ejemplo::funcion_ejemplo()
+```
+
+---
+
+# Estructuras de datos en R
+
+Las estructuras de datos más comunes y con las que vamos a lidiar más son:
+
+    1. Vectores
+    
+    2. Listas
+    
+    3. Data frames
+
+Hay muchos más, pero hay que priorizar las más relevantes
+
+---
+
+## Vectores
+
+Los vectores son la estructura de datos fundamental en R
+
+Los vectores son:
+
+--
+
+ - Unidimensionales (Nx1)
+ 
+--
+
+ - Homogéneos (todos sus elementos son de un mismo tipo)
+
+--
+
+Los vectores pueden ser de tipo:
+
+- numérico
+- texto
+- lógico
+- factores
+
+--
+
+Para definir un vector se usa la función `c()`
+
+---
+
+## Vectores
+
+### Vector numérico
+
+```{r}
+x <- c(1, 2, 3, 4)
+x
+class(x)
+```
+
+---
+
+## Vectores
+
+### Vector de textos (characters)
+
+```{r}
+y <- c('uno', 'A', 'cuadrado', 'manzana')
+y
+class(y)
+```
+---
+
+## Vectores
+
+### Vector de valores lógicos (logical)
+
+```{r}
+z <- c(TRUE, FALSE, FALSE, TRUE)
+z
+class(z)
+```
+
+---
+
+## Vectores
+
+### Vector de factores
+
+Un tipo particular de tipo de vectores son los factores. Son útiles para almacenar datos categóricos, con opciones acotadas
+
+Las distintas opciones se denominan `levels` (niveles)
+
+R almacena los niveles como números, y asocia un `label` (etiqueta) a cada valor. Esto es más eficiente y permite que las funciones de R consideren el orden y la etiqueta de los valores en situaciones en que es relevante 
+
+---
+
+## Vectores
+
+### Vector de factores
+
+```{r}
+x <- factor(c(1, 0, 0, 1),
+            levels = c(0, 1),
+            labels = c('hombre', 'mujer'))
+
+x
+
+```
+
+Si no se especifican los `labels`, R asume que `labels = levels`
+
+---
+
+## Vectores
+
+### Obtener sub conjuntos de un vector
+
+Se puede acceder a los elementos de un vector especificando un vector índice, es decir, un vector de números dentro de `[]`:
+
+```{r}
+(x <- seq(0, 50, 5))
+
+x[c(3, 4)]
+
+```
+
+Otra alternativa:
+
+```{r}
+y <- c(3,4)
+x[y]
+
+```
+
+---
+
+## Vectores
+
+### Obtener sub conjuntos de un vector
+
+Otra alternativa para obtener subconjuntos es a través de vectores lógicos:
+
+```{r}
+(x <- seq(0, 20, 5))
+x[c(TRUE, FALSE, TRUE, TRUE, TRUE)]
+```
+
+---
+
+## Vectores
+
+### Vectores y funciones
+
+R está orientado a operaciones vectorizadas, es decir, que la mayoría de las funciones se aplican sobre vectores y entregan como resultados vectores 
+
+```{r}
+(x <- seq(10, 100, 20))
+
+log(x)
+```
+
+--
+
+No siempre es así, va a depender de la función que estemos utilizando
+```{r}
+mean(x)
+```
+
+---
+
+## Vectores
+
+### Operadores lógicos
+
+Un tipo particular de función son los operadores lógicos: Son funciones que entregan como resultado vectores lógicos (`TRUE` o `FALSE`)
+
+Los más comunes son:
+
+- < (Menor a), > (Mayor a), <= (Menor o igual a), >= (Mayor o igual a)
+- == (Igual a), != (Distinto a)
+- %in% (Se encuentra en)
+- & (Intersección de expresiones lógicas), | (Unión de expresiones lógicas)
+- ! (Negación de una expresión lógica)
+
+--
+
+Cuando se aplican sobre un vector el resultado  es también un vector:
+
+```{r}
+x <- c(1, 10, 50, 100)
+x > 20
+```
+
+---
+
+## Vectores
+
+### Valores faltantes (NA)
+
+Cuando no todos los componentes de un vector son conocidos se le asigna un valor especial: `NA`
+
+La función `is.na()` nos indica si un valor es NA o no:
+
+```{r}
+x <- c(10, 0, NA)
+is.na(x)
+```
+---
+
+## Vectores
+
+### Valores faltantes (NA)
+
+Los `NA` son "contagiosos". Cuando se trata de aplicar funciones u operaciones con NA, el resultado es habitualmente NA
+
+```{r}
+1 + 1 + NA
+
+x <- c(10, 0, NA)
+mean(x)
+```
+
+--
+
+Muchas funciones incluyen la opción `na.rm`, que remueve los casos NA antes de realizar los cálculos:
+
+```{r}
+mean(x, na.rm = TRUE)
+
+```
+
+---
+
+## Listas
+
+En R, una lista es un objeto consistente en una colección ordenada de objetos, conocidos como componentes
+
+Los componentes pueden ser de cualquier tipo
+
+--
+
+Se crean con la funcion `list()`
+
+```{r}
+(x <- list('holi', c(1, 2, 3), c(TRUE, FALSE)))
+```
+
+---
+
+## Listas
+
+Los componentes de una lista siempre están enumerados, y pueden referirse por dicho número
+
+Para acceder a los componentes se usan dobles corchetes `[[]]`:
+
+```{r}
+x <- list('holi', c(1, 2, 3), c(TRUE, FALSE))
+x[[1]]
+x[[2]]
+
+```
+
+---
+
+## Listas
+
+Los componentes de una lista también pueden tener nombre, y acceder a éstos con el operador `$`:
+
+```{r}
+
+x <- list(var1 = 'holi', var2 = c(1,2,3), asd = c(TRUE, FALSE))
+x$var1
+x$asd
+
+```
+
+---
+
+## Data Frames
+
+Probablemente el objeto que más vamos a utilizar son los **Data Frames**
+
+--
+
+Las bases de datos generalmente vienen en el formato de observaciones en filas y variables en columnas:
+
+| nombre    |  m0_sexo  | edad | 
+|:--------	|:-------|:----:|
+| Matías 	  | hombre |  23  |
+| Camila  	| mujer  |  50  |
+| Valentina | mujer  |  55  |
+| Ernesto 	| hombre |  15  |
+
+Los data frames tienen la ventaja de poseer este mismo formato, por lo que van a ser particularmente convienientes
+
+---
+
+## Data Frames
+
+Los data frames son un caso particular de una lista, en que **todos sus componentes son vectores de igual longitud con un nombre asociado**
+
+Se pueden concebir como conjuntos de datos donde las filas representan casos y las columnas variables, así que se ve igual a las bases de datos de otros programas estadísticos como SPSS, Stata o Excel.
+
+--
+
+A diferencia de los vectores, los data frames son:
+
+- Bi-dimensionales: N filas x M columnas
+
+--
+
+- Heterogéneos: variables pueden ser de distinto tipo entre sí (pero no dentro de una misma columna)
+
+--
+
+- Rectangulares: Todas las columnas tienen igual número de filas
+
+---
+
+## Data Frames
+
+Para crear un data frame se utiliza la función `data.frame()`
+
+```{r}
+(x <- data.frame(nombre = c('Matías', 'Camila', 'Valentina', 'Ernesto'), 
+                m0_sexo = c('hombre', 'mujer', 'mujer', 'hombre'), 
+                edad = c(23, 50, 55, 15),
+                ingresos = c(350000, 1200000, 400000, NA)))
+```
+
+--
+
+Si tratamos de definir un data frame con una variable sin nombre, la función le va a asignar uno de forma automática:
+
+
+---
+
+## Data Frames
+
+Se puede acceder a los elementos de un data frame de distintas formas:
+
+- Se puede acceder a sus columnas (vectores) con el operador `$` (al igual que con las listas)
+
+```{r}
+x$nombre
+x$edad
+```
+
+---
+
+## Data Frames
+
+- También se puede acceder especificando el nombre o índice de una columna, usando `[]`:
+
+```{r}
+x[c('edad', 'm0_sexo')]
+x[c(1, 2)]
+
+```
+
+---
+
+## Data Frames
+
+- Para acceder a elementos dentro de una columna, se hace especificando filas y columnas (como una matriz), usando `[]`:
+
+```{r}
+x[2:3, 'nombre']
+x[2:3, c(1,3)]
+```
+
+--
+
+Como las columnas son vectores, se puede acceder a elementos específicos dentro de estas con las mismas reglas que se aplican para los vectores, usando `$` y `[]`:
+
+```{r}
+x$nombre[c(3,4)]
+```
+
+
+---
+
+## Data Frames
+
+Una vez creado el data frame, se pueden agregar columnas usando `$`:
+
+```{r}
+x$edad2 <- 19 + x$edad
+x
+```
+
+---
+
+## Data Frames
+
+De igual forma podemos modificar una variable ya existente:
+
+```{r}
+x$edad <- log(x$edad)
+x
+```
+
+---
+class: center, middle
+
+# Parte II: Trabajando con datos reales en R
+
+---
+
+# Trabajando con datos reales en R
+
+Los pasos que generalmente vamos a realizar y que vamos a ver son:
+
+- Importar datos
+- Preparar datos para su análisis
+- Inspeccionar y visualizar datos
+- Análisis de datos
+
+--
+
+Para estos pasos vamos a utilizar una combinación de funciones base de R, y funciones del paquete `Tidyverse`
+
+---
+
+# Tidyverse
+
+Trabajar con datos reales en R se puede hacer de distintas formas, pero una de las más convenientes es utilizando el paquete `Tidyverse`
+
+--
+
+Tidyverse es un paquete que agrupa una colección de otros paquetes que siguen una misma "filosofía" para trabajar con datos
+
+--
+
+Permite realizar todo tipo de operaciones, transformaciones y modelamiento de datos de manera ordenada y simplificada, descomponiendo las distintas etapas en funciones concatenables y compatibles entre sí
+
+---
+
+.pull-left[ 
+
+# Tidyverse
+
+Algunos de los más importantes son:
+
+- `readr`, `readxl` y `haven`: Para importar datos en distintos formatos 
+ 
+- `dplyr` y `tidyr`: Para manipular y trabajar con data frames
+ 
+- `ggplot2`: Para generar gráficos
+
+- `purrr`: Para trabajar con funciones
+ 
+]
+
+.pull-right[ 
+![](tidyverse-logos.png)
+]
+
+---
+
+
+# Importar datos
+
+Lo primero que generalmente vamos a necesitar hacer es importar los datos con los que trabajaremos a R
+
+--
+
+Para eso, antes necesitamos definir el director donde se encuentran los datos que vamos a utilizar y con los que vamos a trabajar. 
+
+El Directorio de trabajo es la carpeta en nuestro computador donde se almacenan y donde R buscará los archivos con los que estamos trabajando
+
+--
+
+Esto se puede hace con la función `setwd()`
+
+```{r, eval=FALSE}
+setwd('C:/Users/edgar/Desktop/curso_intro_r')
+```
+
+Si estoy trabajando en Markdown, el directorio de trabajo se fija automáticamente en la carpeta donde se encuentra el script
+
+---
+
+# Importar datos
+
+Una vez fijado el directorio, para importar datos hay distintas opciones dependiendo del formato de los datos de origen:
+
+- Objetos de R: `load()` 
+
+- CSV: `readr::read_csv()`
+
+- Excel: `readxl::read_xls()` y `readxl::read_xlsx()`
+
+- Stata, SPSS: `haven::read_dta` y `haven::read_spss`
+
+A excepción de la función `load()`, los datos importados se almacenarán como data frames
+
+---
+
+# Importar datos
+
+Para los ejemplos siguientes utilizaremos la base de datos longitudinal ELSOC 2016-2021. Algunas opciones para descargar estos datos son:
+
+```{r}
+load(file.path('inputs', 'ELSOC_Long_2016_2021_v1.00_R.RData'))
+```
+
+```{r, eval=FALSE}
+elsoc <- haven::read_dta(file = file.path('inputs', 'ELSOC_Long_2016_2021_v1.00_Stata14.dta'))
+
+```
+
+La función load también permite cargar archivos directamente desde una URL:
+```{r, eval=FALSE}
+load(url("https://dataverse.harvard.edu/api/access/datafile/6160173")) 
+```
+
+---
+
+# Preparar datos para su análisis
+
+Los datos generalmente no vienen en un formato apto u óptimo para su análisis, por lo que una gran parte del análisis de datos es en realidad el preparar los datos para su uso
+
+Para esta preparación vamos a usar principalmente las funciones de los paquetes `dplyr` y `tidyr`. Estos paquetes proveen una "gramática" para la manipulación de datos
+
+---
+
+# Preparar datos para su análisis
+
+Las funciones claves a entender y usar son: 
+
+- `select`: Para seleccionar variables, generalmente según sus nombres
+
+- `filter`: Para seleccionar observaciones según alguna condición lógica
+
+- `mutate`: Para crear o modificar variables 
+
+- `summarise`: Para "resumir" filas a valores agregados
+
+--
+
+Todas fucionan igual:
+
+--
+
+- Se utilizan sobre un data frame (es el primer argumento)
+
+--
+
+- Los demás argumentos describen qué hacer con el data frame
+
+--
+
+- El resultado es un data frame nuevo
+
+---
+
+## Filter
+
+La función Filter filtra las observaciones del dataframe, manteniendo aquellas que cumplen alguna condición lógica, y eliminando el resto:
+
+```{r}
+
+elsoc_hombres <- dplyr::filter(elsoc_long_2016_2021, m0_sexo == 1)
+
+table(elsoc_long_2016_2021$m0_sexo)
+table(elsoc_hombres$m0_sexo)
+
+```
+
+---
+
+## Select
+
+Select manteniene las variables que especifico dentro del dataframe, y elimina todas las demás:
+
+Se especifican usando el nombre de las variables, que pueden llamarse como texto o simplemente con el nombre de la variable
+
+
+```{r}
+elsoc_reducido <- dplyr::select(elsoc_long_2016_2021, ola, tipo_atricion, 'm0_sexo', 'm0_edad')
+elsoc_reducido[1:5,]
+
+```
+
+---
+
+## Select
+
+También se pueden utilizar funciones auxiliares que incrementan la utilidad de select:
+
+- `starts_with("abc")`: selecciona las variables cuyos nombre empiezan con "abc"
+
+- `ends_with("abc")`: selecciona las variables cuyos nombre terminan con "abc"
+
+- `contains("abc")`: selecciona las variables cuyos nombre contienen "abc"
+
+- `num_range("abc", 1:3)`: selecciona las variables cuyos nombre son "abc1", "abc2" y "abc3"
+
+
+---
+
+## Mutate
+
+Mutate modifica variables existentes o crea variables nuevas en el dataframe:
+
+```{r}
+
+elsoc_long_2016_2021 <- dplyr::mutate(elsoc_long_2016_2021, 
+                                      edadx2 = m0_edad*2)
+
+elsoc_long_2016_2021[1:5, c('m0_edad', 'edadx2')]
+
+
+```
+
+---
+
+## Mutate
+
+Si uso un nombre de variable que ya existe, se reemplaza por la nueva:
+
+```{r}
+elsoc_long_2016_2021 <- dplyr::mutate(elsoc_long_2016_2021, 
+                                      edadx2 = log(edadx2))
+
+elsoc_long_2016_2021[1:5, c('m0_edad', 'edadx2')]
+
+```
+
+---
+
+## Summarise
+
+
+Para obtener valores resumidos por fila según alguna función (media, mediana, número de casos, etc.):
+
+```{r}
+dplyr::summarise(elsoc_long_2016_2021, 
+                 promedio_edad = mean(m0_edad), 
+                 mediana_edad = median(m0_edad))
+```
+
+--
+
+Algunas de las funciones de resumen más útiles son: `mean()`, `median()`, `n()`, `sd()`, `sum()`, entre otras
+
+--
+
+`summarise` es mucho más útil cuando se usa en combinación con `group_by`, que genera resultados resumidos por grupo. 
+
+
+---
+
+## Operador pipe `%>%` 
+
+.pull-left[ 
+
+Hasta el momento todo bien con estas funciones, pero la verdadera gracia de tidyverse se ve cuando usamos el operador pipe (`%>%`)
+
+`%>%` sirve para "concatenar" series de funciones del Tidyverse
+
+Tan relevante que RStudio viene con un atajo para escribirlo: `ctrl` + `shift` + `M`
+
+]
+
+.pull-right[ 
+![](ceci-nest-pas-un-pipe.png)
+]
+
+---
+
+## Operador pipe `%>%` 
+
+Lo que hace es simplemente traspasar un data frame a la siguiente función como primer argumento
+
+Eso significa que:
+
+```{r, eval = FALSE}
+dplyr::filter(elsoc_long_2016_2021, m0_sexo == 2)
+
+```
+
+Es equivalente a:
+
+```{r, eval = FALSE}
+
+elsoc_long_2016_2021 %>% dplyr::filter(m0_sexo == 2)
+
+```
+
+
+---
+
+## Operador pipe `%>%` 
+
+La gracia es que puedo concatenar múltiples operaciones:
+
+```{r}
+elsoc_long_2016_2021 %>% 
+  dplyr::filter(m0_sexo == 2) %>% 
+  dplyr::summarise(edad_media = mean(m0_edad, na.rm = TRUE),
+                   edad_mediana = median(m0_edad, na.rm = TRUE))
+
+```
+
+Esto permite descomponer todas las transformaciones que se necesitan realizar sobre un data frame en funciones específicas aplicadas de forma concatenada
+
+--
+
+Reduce la complejidad de un problema y permite tener codigos mucho más simples y ordenados
+
+---
+
+## Group_by
+
+Finalmente, la función `group_by()` permite realizar operaciones agrupadas según alguna variable:
+
+```{r}
+elsoc_long_2016_2021 %>%
+  dplyr::group_by(ola) %>% 
+  dplyr::summarise(edad_promedio = mean(m0_edad),
+                   edad_maxima = max(m0_edad)) %>% 
+  dplyr::ungroup()
+
+```
+
+---
+
+# Análisis estadísticos básicos
+
+## Estadísticas descriptivas para valores numéricos
+
+Algunas estadísticas descriptivas básicas para variables continuas son la media, mediana, y desviación estándar:
+
+```{r}
+
+mean(elsoc_long_2016_2021$m0_edad, na.rm = TRUE)
+median(elsoc_long_2016_2021$m0_edad, na.rm = TRUE)
+sd(elsoc_long_2016_2021$m0_edad, na.rm = TRUE)
+
+```
+
+---
+
+## Estadísticas descriptivas para valores numéricos
+
+Para estadísticas por subgrupo podemos utilizar las funciones de dplyr::
+
+```{r}
+elsoc_long_2016_2021 %>%
+  dplyr::group_by(ola) %>%
+  dplyr::summarise(edad_promedio = mean(m0_edad, na.rm = TRUE))
+
+```
+
+---
+
+## Estadísticas descriptivas para valores categóricos
+
+Si pasamos las variables a factor podemos agregar una etiqueta a los valores obtenidos
+
+```{r}
+
+elsoc_long <- elsoc_long_2016_2021 %>% 
+  # Filtrar por atrición y casos perdidos
+    dplyr::filter(tipo_atricion == 1,
+                  !c17 %in% c(-666, -777, -888, -999),
+                  !c05_08 %in% c(-666, -777, -888, -999)) %>% 
+  # Crear variables nuevas con etiquetas
+  dplyr::mutate(
+    ola = factor(ola, labels = c('2016', '2017', '2018', '2019', '2021')),
+    sexo = factor(m0_sexo, labels = c('Hombre', 'Mujer')),
+    # Generar variable de identificación con coalición política
+    idcoal = factor(c17, 
+                            labels = c('Chile Vamos','Nueva Mayoría','Frente Amplio', 'Otra','Ninguna')),
+    # Generar variable de confianza en el presidente
+    conf_presi = factor(c05_08,
+                                labels = c('Nada', 'Poco', 'Algo', 'Bastante', 'Mucho'))) %>% 
+    dplyr::select(idencuesta, m0_sexo, ola, m0_edad, idcoal, conf_presi)
+
+
+```
+
+---
+
+## Estadísticas descriptivas para valores categóricos
+
+Para variables categóricas es más relevante el análisis de la frecuencia:
+
+```{r}
+table(elsoc_long$idcoal)
+
+```
+
+--
+
+El output de la función table es un objeto que se puede almacenar:
+
+```{r}
+tabla1 <- table(elsoc_long$idcoal)
+prop.table(tabla1)
+```
+
+---
+
+## Estadísticas descriptivas para valores categóricos
+
+Si necesito realizar análisis de más de una variable:
+
+```{r}
+(tabla2 <- table(elsoc_long$idcoal, elsoc_long$conf_presi))
+
+```
+
+---
+
+## Estadísticas descriptivas para valores categóricos
+
+Y para obtener la frecuencia relativa de cada categoría lo hago igual que antes:
+
+```{r}
+prop.table(tabla2)
+
+```
+
+---
+
+## Estadísticas descriptivas para valores categóricos
+
+Puedo modificar el margen sobre el que se calcula el porcentaje:
+
+```{r}
+prop.table(tabla2, margin = 1)
+```
+
+---
+
+## Estadísticas descriptivas para valores categóricos
+
+Puedo modificar el margen sobre el que se calcula el porcentaje:
+
+```{r}
+prop.table(tabla2, margin = 2)
+```
+
+---
+
+## Modelos de regresion
+
+
+```{r}
+
+m1 <- lm(conf_presi %in% c('Bastante', 'Mucho') ~ 1 + m0_sexo + m0_edad + ola, 
+          data = elsoc_long)
+
+m2 <- glm(conf_presi %in% c('Bastante', 'Mucho') ~ 1 + m0_sexo + m0_edad + ola, 
+          family = binomial(link='logit'),
+          data = elsoc_long)
+```
+
+---
+
+## Modelos de regresion
+
+```{r}
+modelsummary::modelsummary(list(m1, m2),
+                           estimate = "{estimate}{stars} ({std.error})",
+                           statistic = NULL,
+                           gof_map = c('nobs', 'adj.r.squared'))
+
+```
+
+
+---
+
+# Visualización de datos con ggplot2
+
+Para finalizar, veremos muy rápidamente el paquete de gráficos `ggplot2`. Este paquete es extremadamente útil para hacer gráficos complejos, pero de forma sencilla y ordenada
+
+Usa una gramática de gráficos que provee un marco para construir gráficos por etapas (`layers`)
+
+La específicación básica es primero seleccionar qué variables son "mapeadas" a qué aspecto del gráfico (llamado `aesthetics`), y luego elegir una forma (llamado `geom`) para mostrar ese gráfico
+
+
+---
+
+# Visualización de datos con ggplot2
+
+La sintaxis estándar es del tipo:
+
+```{r, eval=FALSE}
+ggplot(dataset, aes(x=xvar, y=yvar)) + geom_function()
+```
+
+La sintaxis usa los datos en `dataset`, pone las variables `xvar` e `yvar` en los ejes x e y, respectivamente, con la función `aes()`, y luego usa `geom_function()` para producir las formas del gráfico
+
+Por ejemplo, `geom_point()` genera un gráfico de puntos, y `geom_boxplot()` uno de boxplots 
+
+En `aes()` se pueden especificar más variales que controlan distintos aspectos del gráfico, como el color, tamaño y forma de los objetos graficados
+
+
+---
+class: middle
+
+# Visualización de datos con ggplot2
+
+```{r, warning=FALSE, out.height='400px', out.width='400px'}
+g1 <- data.frame(prop.table(tabla1))
+
+ggplot(g1, aes(y = Freq, x = Var1)) + 
+  geom_col()
+```
+
+---
+class: middle
+
+# Visualización de datos con ggplot2
+
+```{r, warning=FALSE, out.height='400px', out.width='400px'}
+ggplot(data = elsoc_long, 
+       aes(x = m0_edad, color = idcoal)) + 
+  geom_density()
+```
+
+---
+
+# Visualización de datos con ggplot2
+
+```{r, warning=FALSE, message=FALSE, out.height='400px', out.width='400px'}
+elsoc_long %>% 
+  dplyr::filter(ola == '2019' & !is.na(idcoal)) %>% 
+  ggplot(aes(y = m0_edad, x = idcoal)) + 
+  geom_boxplot()
+```
+
+---
+
+# Visualización de datos con ggplot2
+
+```{r, warning=FALSE, message=FALSE, out.height='400px', out.width='400px'}
+elsoc_long %>% 
+  dplyr::filter(ola == '2019' & !is.na(idcoal)) %>% 
+  ggplot(aes(y = m0_edad, x = idcoal, fill = m0_sexo)) + 
+  geom_boxplot()
+
+```
+
+
+---
+
+# Visualización de datos con ggplot2
+
+Esto es lo más básico asociado a ggplot, pero hay infinidad de opciones para editar
+
+Prácticamente todos los aspectos de la estética del gráfico es editable siguiendo la lógica de capas
+
+Para profundizar en esto se hará un curso específicamente asociado a la visualización de datos longitudinales con ggplot el martes 20 de julio a las 14:00
+
+---
+
+# Seguir aprendiendo
+
+## Lecturas sugeridas (todos gratis)
+
+Para R introductorio aplicado al análisis de datos:
+
+- Irizarry, R. (2021) Introduction to Data Science (https://rafalab.github.io/dsbook/)
+- Wikham, H. & Grolemund, G. (2017) R for Data Science (https://r4ds.had.co.nz/)
+
+Para visualización de datos en R:
+
+- Healy, K. (2018) Data Visualization. A Practical Introduction (https://socviz.co/)
+- Chang, W. (2021) R Graphics Cookbook (https://r-graphics.org/)
+
+Para temas más avanzados en R: 
+
+- Wikham, H. (2019) Advanced R (https://adv-r.hadley.nz/index.html)
+- Lovelace, R. (2021) Efficient R programming (https://csgillespie.github.io/efficientR/)
+
+---
+
+# Seguir aprendiendo
+
+## Otros muy importantes:
+
+- Uso de documentación de R
+
+- Función `help()` o `?`
+
+- Google
+
+- Stackoverflow
+
+- Asistir a cursos de Introducción al manejo de bases de datos longitudinales con ELSOC y curso de Visualización de datos longitudinales en R
+
+---
+
+class: center, middle
+
+## Gracias!
+
+
+
+
+
+
+
+
+
+
+
